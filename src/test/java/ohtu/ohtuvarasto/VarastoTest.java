@@ -103,7 +103,7 @@ public class VarastoTest {
     @Test
     public void konstruktoriToimiiAlkuSaldolla() {
         Varasto va = new Varasto(10, 3);
-        assertEquals(3, va.getSaldo(), vertailuTarkkuus);
+        assertEquals(2, va.getSaldo(), vertailuTarkkuus);
         assertEquals(7, va.paljonkoMahtuu(), vertailuTarkkuus);
     }
     
