@@ -1,14 +1,9 @@
 package ohtu.ohtuvarasto;
 
-import org.junit.*;
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class VarastoTest {
 
@@ -64,5 +59,61 @@ public class VarastoTest {
         // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
+    
+    @Test
+    public void negatiivinenLisaaminenPalaa() {
+        varasto.lisaaVarastoon(-2);
+        assertEquals(10, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void liikaaLisaaminenTayttaa() {
+        varasto.lisaaVarastoon(12);
+        assertEquals(0, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void negatiivinenOttaminenPalaa() {
+        varasto.otaVarastosta(-1);
+        assertEquals(10, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void liikaaOttaminenAntaaKaikki() {
+        varasto.lisaaVarastoon(6);
+        double saatuMaara = varasto.otaVarastosta(10);
+        assertEquals(6, saatuMaara, vertailuTarkkuus);
+        assertEquals(10, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void toStringToimii() {
+        varasto.lisaaVarastoon(3);
+        assertEquals("saldo = 3.0, vielä tilaa 7.0", varasto.toString());
+    }
+    
+    @Test
+    public void negatiivinenTilavuusAntaaNollavaraston() {
+        Varasto va = new Varasto(-2);
+        assertEquals(0.0, va.getTilavuus(), vertailuTarkkuus);
+        Varasto var = new Varasto(-2, 4);
+        assertEquals(0.0, var.getTilavuus(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void konstruktoriToimiiAlkuSaldolla() {
+        Varasto va = new Varasto(10, 3);
+        assertEquals(3, va.getSaldo(), vertailuTarkkuus);
+        assertEquals(7, va.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void negatiivinenAlkuSaldoAntaaNollasaldon() {
+        Varasto va = new Varasto(10, -5);
+        assertEquals(0, va.getSaldo(), vertailuTarkkuus);
+        assertEquals(10, va.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    
+    
 
 }
