@@ -113,7 +113,4 @@ public class VarastoTest {
         assertEquals(0, va.getSaldo(), vertailuTarkkuus);
         assertEquals(10, va.paljonkoMahtuu(), vertailuTarkkuus);
     }
-    
-    
-
 }
